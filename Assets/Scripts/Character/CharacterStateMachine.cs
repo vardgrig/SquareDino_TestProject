@@ -7,16 +7,19 @@ using UnityEngine.AI;
 public class CharacterStateMachine : StateMachine
 {
     [SerializeField] private float _movementSpeed = 5f;
-    [SerializeField] private Transform _mainCameraTransform;
+    [SerializeField] private Camera _mainCamera;
     [SerializeField] private Animator _characterAnimator;
     [SerializeField] private List<Transform> _waypointTransforms;
     [SerializeField] private NavMeshAgent _navMeshAgent;
+    [SerializeField] private BulletPool _bulletPool;
 
     public float MovementSpeed => _movementSpeed;
-    public Transform MainCameraTransform => _mainCameraTransform;
+    public Camera MainCamera => _mainCamera;
+    public Transform MainCameraTransform => _mainCamera.transform;
     public Animator CharacterAnimator => _characterAnimator;
     public List<Transform> WaypointTransforms => _waypointTransforms;
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
+    public BulletPool BulletPool => _bulletPool;
 
     private void Start()
     {

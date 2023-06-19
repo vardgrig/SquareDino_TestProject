@@ -7,9 +7,10 @@ public class CharacterMoveState : CharacterBaseState
 
     public override void Enter()
     {
+        Debug.Log("Entering Move State");
         stateMachine.CharacterAnimator.SetBool(RUN_KEY, true);
-        FaceToWaypoint();
         GoToNextWaypoint();
+        FaceToWaypoint();
     }
 
     public override void Tick()
@@ -32,14 +33,5 @@ public class CharacterMoveState : CharacterBaseState
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             stateMachine.transform.rotation = targetRotation;
         }
-    }
-    private bool IsReachedWaypoint()
-    {
-        if (stateMachine.transform.position.z >= stateMachine.WaypointTransforms[0].position.z)
-        {
-            stateMachine.OnWaypointReached();
-            return true;
-        }
-        return false;
     }
 }
