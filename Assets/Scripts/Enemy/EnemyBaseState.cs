@@ -1,18 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBaseState : MonoBehaviour
+public abstract class EnemyBaseState : State
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    protected readonly EnemyStateMachine stateMachine;
 
-    // Update is called once per frame
-    void Update()
+    protected EnemyBaseState(EnemyStateMachine stateMachine)
     {
-        
+        this.stateMachine = stateMachine;
+    }
+    protected bool IsDead()
+    {
+        return stateMachine.EnemyHealth <= 0;
+    }
+    protected void ChangeRagdollState(bool activate)
+    {
+        stateMachine.EnemyAnimator.enabled = !activate;
+        stateMachine.EnemyRigidbody.isKinematic = activate;
+        stateMachine.EnemyCollider.enabled = !activate;
+
+        foreach(var rigidbody in stateMachine.EnemyRagdollRigidbodies)
+        {
+            rigidbody.isKinematic = !activate;
+        }
+
+        foreach(var collider in stateMachine.EnemyRagdollColliders)
+        {
+            collider.enabled = activate;
+        }
     }
 }

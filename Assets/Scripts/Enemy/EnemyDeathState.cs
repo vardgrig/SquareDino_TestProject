@@ -1,18 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDeathState : MonoBehaviour
+public class EnemyDeathState : EnemyBaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    public EnemyDeathState(EnemyStateMachine stateMachine) : base(stateMachine) { }
+
+    public override void Enter()
     {
-        
+        ChangeRagdollState(true);
+        stateMachine.DestroyEnemy();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Exit()
     {
-        
+    }
+
+    public override void Tick()
+    {
     }
 }
