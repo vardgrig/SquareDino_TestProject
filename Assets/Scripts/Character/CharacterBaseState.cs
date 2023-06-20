@@ -28,7 +28,6 @@ public abstract class CharacterBaseState : State
                 SceneManager.LoadScene(0);
             }
 
-            stateMachine.Waypoints[0].PrintEnemies();
             stateMachine.NavMeshAgent.isStopped = true;
             return true;
         }

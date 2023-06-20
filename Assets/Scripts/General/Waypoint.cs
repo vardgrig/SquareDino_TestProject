@@ -13,13 +13,4 @@ public class Waypoint : MonoBehaviour
     {
         _currentEnemies.Remove(enemy);
     }
-
-    public void PrintEnemies()
-    {
-        Debug.Log($"Enemy count in this waypoint is: {_currentEnemies.Count}");
-        foreach(var enemy in _currentEnemies)
-        {
-            Debug.Log(enemy.name);
-        }
-    }
 }
