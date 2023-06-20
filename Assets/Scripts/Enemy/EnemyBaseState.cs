@@ -12,6 +12,7 @@ public abstract class EnemyBaseState : State
     {
         return stateMachine.EnemyHealth <= 0;
     }
+
     protected void ChangeRagdollState(bool activate)
     {
         stateMachine.EnemyAnimator.enabled = !activate;

@@ -13,6 +13,7 @@ public class EnemyStateMachine : StateMachine, IEnemy
     [SerializeField] private List<Rigidbody> _enemyRagdollRigidbodies;
     [SerializeField] private List<Collider> _enemyRagdollColliders;
     [SerializeField] private float _enemyLifetimeAfterDeath;
+    [SerializeField] private Waypoint _waypoint;
 
     public Animator EnemyAnimator => _enemyAnimator;
     public int EnemyHealth => _enemyHealth;
@@ -21,6 +22,7 @@ public class EnemyStateMachine : StateMachine, IEnemy
     public List<Rigidbody> EnemyRagdollRigidbodies => _enemyRagdollRigidbodies;
     public List<Collider> EnemyRagdollColliders => _enemyRagdollColliders;
     public float EnemyLifetimeAfterDeath => _enemyLifetimeAfterDeath;
+    public Waypoint Waypoint => _waypoint;
 
     private void Start()
     {

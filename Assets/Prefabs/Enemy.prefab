@@ -1030,7 +1030,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &2132455943331857940
 MonoBehaviour:
@@ -1047,7 +1047,7 @@ MonoBehaviour:
   _enemyAnimator: {fileID: 6394445086824993744}
   _enemyCollider: {fileID: 6394445086824993745}
   _enemyRigidbody: {fileID: 1779446594459885235}
-  _enemyHealth: 50
+  _enemyHealth: 100
   _enemyRagdollRigidbodies:
   - {fileID: 5112094866981244963}
   - {fileID: 4912635646398292601}
@@ -1073,3 +1073,4 @@ MonoBehaviour:
   - {fileID: 8938742288089425755}
   - {fileID: 3942694533601227469}
   _enemyLifetimeAfterDeath: 3
+  _waypoint: {fileID: 0}

@@ -9,7 +9,7 @@ public class CharacterStateMachine : StateMachine
     [SerializeField] private float _movementSpeed = 5f;
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private Animator _characterAnimator;
-    [SerializeField] private List<Transform> _waypointTransforms;
+    [SerializeField] private List<Waypoint> _waypoints;
     [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] private BulletPool _bulletPool;
 
@@ -17,7 +17,7 @@ public class CharacterStateMachine : StateMachine
     public Camera MainCamera => _mainCamera;
     public Transform MainCameraTransform => _mainCamera.transform;
     public Animator CharacterAnimator => _characterAnimator;
-    public List<Transform> WaypointTransforms => _waypointTransforms;
+    public List<Waypoint> Waypoints => _waypoints;
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
     public BulletPool BulletPool => _bulletPool;
 
@@ -28,8 +28,8 @@ public class CharacterStateMachine : StateMachine
 
     public void OnWaypointReached()
     {
-        if (_waypointTransforms.Count > 0)
-            _waypointTransforms.RemoveAt(0);
+        if (_waypoints.Count > 0)
+            _waypoints.RemoveAt(0);
         else
             Debug.Log("Waypoint list is empty!");
     }

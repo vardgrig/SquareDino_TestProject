@@ -11,6 +11,7 @@ public class EnemyIdleState : EnemyBaseState
     {
         if(IsDead())
         {
+            stateMachine.Waypoint.RemoveEnemy(stateMachine.gameObject);
             stateMachine.SwitchState(new EnemyDeathState(stateMachine));
         }
     }

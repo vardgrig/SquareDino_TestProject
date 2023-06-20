@@ -1,9 +1,9 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class CharacterBaseState : State
 {
     protected readonly CharacterStateMachine stateMachine;
-    protected bool isWaypointCompleted = false;
 
     protected CharacterBaseState(CharacterStateMachine stateMachine)
     {
@@ -12,7 +12,7 @@ public abstract class CharacterBaseState : State
 
     protected void GoToNextWaypoint()
     {
-        stateMachine.NavMeshAgent.SetDestination(stateMachine.WaypointTransforms[0].position);
+        stateMachine.NavMeshAgent.SetDestination(stateMachine.Waypoints[0].transform.position);
         if (stateMachine.NavMeshAgent.isStopped)
         {
             stateMachine.NavMeshAgent.isStopped = false;
@@ -20,10 +20,16 @@ public abstract class CharacterBaseState : State
     }
     protected bool IsReachedWaypoint()
     {
-        if (stateMachine.transform.position.z >= stateMachine.WaypointTransforms[0].position.z)
+        if (stateMachine.transform.position.z >= stateMachine.Waypoints[0].transform.position.z)
         {
+            if (stateMachine.Waypoints[0].IsFinalWaypoint)
+            {
+                Debug.Log("Finish");
+                SceneManager.LoadScene(0);
+            }
+
+            stateMachine.Waypoints[0].PrintEnemies();
             stateMachine.NavMeshAgent.isStopped = true;
-            stateMachine.OnWaypointReached();
             return true;
         }
         return false;
@@ -39,8 +45,12 @@ public abstract class CharacterBaseState : State
     }
     protected bool IsWaypointCompleted()
     {
+        if (stateMachine.Waypoints[0].GetEnemiesCountInThisWaypoint == 0)
+        {
+            stateMachine.OnWaypointReached();
+            return true;
+        }
         return false;
-        //return isWaypointCompleted;
     }
     private Vector3 GetTapDirection()
     {

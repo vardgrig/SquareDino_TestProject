@@ -13,7 +13,7 @@ public class CharacterIdleState : CharacterBaseState
     public override void Tick()
     {
         Shoot();
-        if(isWaypointCompleted)
+        if(IsWaypointCompleted())
         {
             stateMachine.SwitchState(new CharacterMoveState(stateMachine));
         }
