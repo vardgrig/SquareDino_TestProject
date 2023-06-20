@@ -6,20 +6,24 @@ public class CharacterIdleState : CharacterBaseState
 
     public override void Enter()
     {
-        Debug.Log("Entering Idle State");
         stateMachine.CharacterAnimator.SetBool(RUN_KEY, false);
+        stateMachine.GameStateMachine.OnGameStarted += StartGame;
+        if(stateMachine.IsGameStarted)
+            stateMachine.SwitchState(new CharatcerShootingState(stateMachine));
     }
 
     public override void Tick()
     {
-        Shoot();
-        if(IsWaypointCompleted())
-        {
-            stateMachine.SwitchState(new CharacterMoveState(stateMachine));
-        }
     }
 
     public override void Exit()
     {
+        stateMachine.GameStateMachine.OnGameStarted += StartGame;
+    }
+
+    private void StartGame()
+    {
+        stateMachine.IsGameStarted = true;
+        stateMachine.SwitchState(new CharacterMoveState(stateMachine));
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public abstract class CharacterBaseState : State
 {
     protected readonly CharacterStateMachine stateMachine;
-
     protected CharacterBaseState(CharacterStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
@@ -33,13 +32,13 @@ public abstract class CharacterBaseState : State
         }
         return false;
     }
-    protected void Shoot()
+    protected void Shoot(string audioKey)
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Shoot");
-            var tapPosition = GetTapDirection();
+            var tapPosition = TapUtils.GetTapDirection();
             stateMachine.BulletPool.ShootBullet(tapPosition);
+            AudioManager.instance.Play(audioKey);
         }
     }
     protected bool IsWaypointCompleted()
@@ -50,22 +49,5 @@ public abstract class CharacterBaseState : State
             return true;
         }
         return false;
-    }
-    private Vector3 GetTapDirection()
-    {
-        Ray ray = stateMachine.MainCamera.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            var hitPosition = hit.point;
-            return hitPosition;
-        }
-        else
-        {
-            var mousePos = Input.mousePosition;
-            mousePos += stateMachine.MainCameraTransform.forward * 20f;
-            var direction = stateMachine.MainCamera.ScreenToWorldPoint(mousePos);
-            return direction;
-        }
     }
 }

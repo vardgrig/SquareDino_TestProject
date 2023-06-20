@@ -7,7 +7,6 @@ public class CharacterMoveState : CharacterBaseState
 
     public override void Enter()
     {
-        Debug.Log("Entering Move State");
         stateMachine.CharacterAnimator.SetBool(RUN_KEY, true);
         GoToNextWaypoint();
         FaceToWaypoint();
@@ -25,13 +24,7 @@ public class CharacterMoveState : CharacterBaseState
     }
     private void FaceToWaypoint()
     {
-        Vector3 direction = stateMachine.Waypoints[0].transform.position - stateMachine.transform.position;
-        direction.y = 0f; // Make sure the character only rotates around the Y-axis
-
-        if (direction != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            stateMachine.transform.rotation = targetRotation;
-        }
+        Vector3 waypointPosition = stateMachine.Waypoints[0].transform.position;
+        stateMachine.transform.LookAt(waypointPosition);
     }
 }

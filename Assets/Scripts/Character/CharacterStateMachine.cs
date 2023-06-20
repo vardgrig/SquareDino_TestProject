@@ -12,6 +12,7 @@ public class CharacterStateMachine : StateMachine
     [SerializeField] private List<Waypoint> _waypoints;
     [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] private BulletPool _bulletPool;
+    [SerializeField] private GameStateMachine _gameStateMachine;
 
     public float MovementSpeed => _movementSpeed;
     public Camera MainCamera => _mainCamera;
@@ -20,10 +21,12 @@ public class CharacterStateMachine : StateMachine
     public List<Waypoint> Waypoints => _waypoints;
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
     public BulletPool BulletPool => _bulletPool;
+    public GameStateMachine GameStateMachine => _gameStateMachine;
+    public bool IsGameStarted { get; set; }
 
     private void Start()
     {
-        SwitchState(new CharacterMoveState(this));
+        SwitchState(new CharacterIdleState(this));
     }
 
     public void OnWaypointReached()

@@ -8,6 +8,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Animator))]
 public class EnemyStateMachine : StateMachine, IEnemy
 {
+    private const string ENEMY_HIT_AUDIO_KEY = "e_hit";
+
     [SerializeField] private Animator _enemyAnimator;
     [SerializeField] private Collider _enemyCollider;
     [SerializeField] private Rigidbody _enemyRigidbody;
@@ -17,6 +19,7 @@ public class EnemyStateMachine : StateMachine, IEnemy
     [SerializeField] private float _enemyLifetimeAfterDeath;
     [SerializeField] private Waypoint _waypoint;
     [SerializeField] private Slider _healthBarSlider;
+    [SerializeField] private TextMeshProUGUI _healthBarTextUGUI;
 
     public Animator EnemyAnimator => _enemyAnimator;
     public int EnemyHealth => _enemyHealth;
@@ -24,9 +27,7 @@ public class EnemyStateMachine : StateMachine, IEnemy
     public Collider EnemyCollider => _enemyCollider;
     public List<Rigidbody> EnemyRagdollRigidbodies => _enemyRagdollRigidbodies;
     public List<Collider> EnemyRagdollColliders => _enemyRagdollColliders;
-    public float EnemyLifetimeAfterDeath => _enemyLifetimeAfterDeath;
     public Waypoint Waypoint => _waypoint;
-    public Slider HealthBarSlider => _healthBarSlider;
 
     private void Start()
     {
@@ -38,6 +39,7 @@ public class EnemyStateMachine : StateMachine, IEnemy
     {
         _healthBarSlider.maxValue = _enemyHealth;
         _healthBarSlider.minValue = 0;
+        _healthBarTextUGUI.text = _enemyHealth.ToString();
         _healthBarSlider.value = _healthBarSlider.maxValue;
     }
 
@@ -49,6 +51,7 @@ public class EnemyStateMachine : StateMachine, IEnemy
             return;
         }
         _healthBarSlider.value -= valueToChange;
+        _healthBarTextUGUI.text = _enemyHealth.ToString();
     }
 
     public void TakeDamage(int damage)
@@ -59,6 +62,7 @@ public class EnemyStateMachine : StateMachine, IEnemy
             _enemyHealth = 0;
             return;
         }
+        AudioManager.instance.Play(ENEMY_HIT_AUDIO_KEY);
         _enemyHealth -= damage;
     }
 
